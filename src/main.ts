@@ -1,24 +1,36 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+// @ts-expect-error The @fontsource package has no type declarations
+import '@fontsource/roboto';
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+import './style.scss';
+import { outlet, router } from '@config/router/router';
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+window.router = router;
+
+const indexButton = document.createElement('button');
+indexButton.setAttribute('type', 'button');
+indexButton.innerHTML = 'Index';
+
+indexButton.addEventListener('click', () => {
+  router('/');
+});
+
+const contactUsButton = document.createElement('button');
+contactUsButton.setAttribute('type', 'button');
+contactUsButton.innerHTML = 'Contact us';
+
+contactUsButton.addEventListener('click', () => {
+  router('/contact-us');
+});
+
+const contactUsLink = document.createElement('a');
+contactUsLink.setAttribute('href', '/contact-us');
+contactUsLink.innerHTML = 'Contact us';
+contactUsLink.addEventListener('click', function (event) {
+  event.preventDefault();
+  router(this.pathname);
+});
+
+document.body.appendChild(indexButton);
+document.body.appendChild(contactUsButton);
+document.body.appendChild(contactUsLink);
+document.body.appendChild(outlet);

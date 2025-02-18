@@ -1,16 +1,41 @@
 {
-  "name": "vanilla-docs",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+  "dependencies": {
+    "@fontsource/roboto": "5.1.1"
   },
   "devDependencies": {
-    "typescript": "~5.7.2",
-    "vite": "^6.1.0"
+    "@commitlint/cli": "19.7.1",
+    "@commitlint/config-conventional": "19.7.1",
+    "@eslint/js": "9.20.0",
+    "@stylistic/eslint-plugin": "4.0.0",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/user-event": "14.6.1",
+    "@vitest/coverage-v8": "3.0.5",
+    "eslint": "9.20.1",
+    "globals": "15.15.0",
+    "husky": "9.1.7",
+    "jsdom": "26.0.0",
+    "prettier": "3.5.1",
+    "sass-embedded": "1.85.0",
+    "typescript": "5.7.2",
+    "typescript-eslint": "8.24.1",
+    "vite": "6.1.0",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.0.5"
   },
-  "packageManager": "yarn@4.6.0"
+  "name": "vanilla-docs",
+  "packageManager": "yarn@4.6.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "dev": "vite",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ci": "vitest -run",
+    "test:ci:coverage": "vitest run --coverage",
+    "test:coverage": "vitest --coverage"
+  },
+  "type": "module",
+  "version": "0.0.0"
 }
