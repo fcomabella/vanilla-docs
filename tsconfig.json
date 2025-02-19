@@ -25,6 +25,7 @@
       "@__tests__/*": ["src/__tests__/*"],
       "@config/*": ["src/config/*"],
       "@core/*": ["src/core/*"],
+      "@routes/*": ["src/routes/*"],
       "@ui/*": ["src/ui/*"]
     },
     "types": ["vitest/globals"]

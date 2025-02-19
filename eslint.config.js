@@ -1,14 +1,23 @@
 import globals from 'globals';
 import stylistic from '@stylistic/eslint-plugin';
 import tseslint from 'typescript-eslint';
+import jestDom from 'eslint-plugin-jest-dom';
+import vitest from '@vitest/eslint-plugin';
 
 export default tseslint.config(
   { ignores: ['dist', 'coverage'] },
   {
-    extends: [...tseslint.configs.recommended],
     files: ['**/*.{js,mjs,cjs,ts}'],
     languageOptions: { globals: globals.browser },
-    plugins: { '@stylistic': stylistic },
+    plugins: {
+      '@stylistic': stylistic,
+      vitest,
+    },
+    extends: [
+      ...tseslint.configs.recommended,
+      vitest.configs.recommended,
+      jestDom.configs['flat/recommended'],
+    ],
     rules: {
       curly: ['error', 'all'],
       quotes: ['error', 'single'],
@@ -37,7 +46,6 @@ export default tseslint.config(
           ignoreRegExpLiterals: true,
         },
       ],
-      '@stylistic/curly-newline': ['error', 'always'],
       '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/array-type': ['error', { default: 'generic' }],
     },
