@@ -1,0 +1,20 @@
+.columnTitleBar {
+  padding: 0.5rem;
+  display: flex;
+  color: #676767;
+}
+
+.nameColumn {
+  flex-basis: 50%;
+  flex-shrink: 1;
+}
+
+.contributorsColumn {
+  flex-basis: 25%;
+  flex-shrink: 1;
+}
+
+.attachmentsColumn {
+  flex-basis: 25%;
+  flex-shrink: 1;
+}
