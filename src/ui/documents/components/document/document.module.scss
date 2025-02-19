@@ -1,4 +1,30 @@
 .listView {
   border-radius: 0.25rem;
   background-color: white;
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.details {
+  flex-basis: 50%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.contributors {
+  flex-basis: 25%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.attachments {
+  flex-basis: 25%;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: bold;
 }
