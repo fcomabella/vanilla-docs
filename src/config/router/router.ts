@@ -33,14 +33,7 @@ export const createRouter = (routes: Routes): Router => {
     return path;
   };
 
-  const navigate = (
-    path: string | URL,
-    searchParams?: URLSearchParams
-  ): void => {
-    const url = mapPathToURL(path, searchParams);
-
-    window.history.pushState({}, '', url);
-
+  const renderRoute = (url: URL): void => {
     routes.forEach((route) => {
       if (route.path === url.pathname) {
         outlet.replaceChildren(
@@ -51,13 +44,29 @@ export const createRouter = (routes: Routes): Router => {
         );
       }
     });
-
-    previousUrl = window.location.href;
+    previousUrl = url.href;
   };
+
+  const navigate = (
+    path: string | URL,
+    searchParams?: URLSearchParams
+  ): void => {
+    const url = mapPathToURL(path, searchParams);
+
+    window.history.pushState({}, '', url);
+
+    renderRoute(url);
+  };
+
+  window.addEventListener('popstate', function () {
+    const url = new URL(this.location.href);
+    renderRoute(url);
+  });
 
   const observer = new MutationObserver(function (): void {
     if (window.location.href !== previousUrl) {
-      navigate(new URL(window.location.href));
+      const url = new URL(window.location.href);
+      renderRoute(url);
     }
   });
 

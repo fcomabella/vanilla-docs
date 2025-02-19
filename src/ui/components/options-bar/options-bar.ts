@@ -17,7 +17,7 @@ export const OptionsBar: ElementConstructor<
     iconName: 'view_list',
     className: classNames({ [styles.active]: view === 'list' }),
     onClick: () => {
-      if (view === 'grid') {
+      if (view !== 'list') {
         searchParams.set('view', 'list');
         router.navigate('/', searchParams);
       }
@@ -27,7 +27,7 @@ export const OptionsBar: ElementConstructor<
     iconName: 'view_module',
     className: classNames({ [styles.active]: view === 'grid' }),
     onClick: () => {
-      if (view === 'list') {
+      if (view !== 'grid') {
         searchParams.set('view', 'grid');
         router.navigate('/', searchParams);
       }
