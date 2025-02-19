@@ -1,23 +1,26 @@
-.listView {
+.base {
   border-radius: 0.25rem;
   background-color: white;
-  padding: 0.5rem;
+  padding: 1rem;
+}
+
+.listView {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.details {
+.detailsListView {
   flex-basis: 50%;
   flex-shrink: 1;
 }
 
-.contributors {
+.contributorsListView {
   flex-basis: 25%;
   flex-shrink: 1;
 }
 
-.attachments {
+.attachmentsListView {
   flex-basis: 25%;
   flex-shrink: 1;
 }
@@ -25,4 +28,26 @@
 .name {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+.gridView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.detailsGridView {
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contributorsGridView {
+  flex-shrink: 1;
+}
+
+.attachmentsGridView {
+  flex-shrink: 1;
 }

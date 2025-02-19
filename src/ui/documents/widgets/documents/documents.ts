@@ -5,27 +5,39 @@ import { Document } from '@ui/documents/components/document';
 import styles from './documents.module.scss';
 import { ColumnTitleBar } from '@ui/documents/components/column-title-bar';
 
-export const Documents: ElementConstructor<
-  DocumentsProps,
-  HTMLDivElement
-> = () => {
-  const documents = Array(3)
-    .fill(undefined)
-    .map((_, index) =>
-      Document({
-        document: {
-          name: `Document ${index + 1}`,
-          version: index.toString(),
-          attachments: ['Attachment 1', 'Attachment 2'],
-          contributors: ['Contributor 1', 'Contributor 2'],
-        },
-      })
-    );
+export const Documents: ElementConstructor<DocumentsProps, HTMLDivElement> = ({
+  view,
+}) => {
+  const children: Array<HTMLElement> = [];
+  let className = styles.listView;
 
-  const columnTitleBar = ColumnTitleBar({});
+  if (view === 'list') {
+    children.push(ColumnTitleBar({}));
+  }
+
+  if (view === 'grid') {
+    className = styles.gridView;
+  }
+
+  children.push(
+    ...Array(4)
+      .fill(undefined)
+      .map((_, index) =>
+        Document({
+          document: {
+            name: `Document ${index + 1}`,
+            version: index.toString(),
+            attachments: ['Attachment 1', 'Attachment 2'],
+            contributors: ['Contributor 1', 'Contributor 2'],
+          },
+          view,
+        })
+      )
+  );
+
   const elem = Div({
-    children: [columnTitleBar, ...documents],
-    className: styles.listView,
+    children,
+    className,
   });
 
   return elem;

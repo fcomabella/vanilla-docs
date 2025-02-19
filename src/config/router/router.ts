@@ -6,20 +6,38 @@ export const outlet = document.createElement('div');
 export const createRouter = (routes: Routes): Router => {
   let previousUrl: string | undefined = undefined;
 
-  const mapPathToURL = (path: string | URL): URL => {
+  const mapPathToURL = (
+    path: string | URL,
+    searchParams?: URLSearchParams
+  ): URL => {
     if (typeof path === 'string') {
       if (!path.startsWith(window.location.origin)) {
-        return new URL(window.location.origin + path);
+        const url = new URL(window.location.origin + path);
+
+        if (searchParams) {
+          url.search = searchParams.toString();
+        }
+
+        return url;
       } else {
-        return new URL(path);
+        const url = new URL(path);
+
+        if (searchParams) {
+          url.search = searchParams.toString();
+        }
+
+        return url;
       }
     }
 
     return path;
   };
 
-  const navigate = (path: string | URL): void => {
-    const url = mapPathToURL(path);
+  const navigate = (
+    path: string | URL,
+    searchParams?: URLSearchParams
+  ): void => {
+    const url = mapPathToURL(path, searchParams);
 
     window.history.pushState({}, '', url);
 

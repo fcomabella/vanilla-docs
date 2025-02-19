@@ -1,2 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface DocumentsProps {}
+import { DocumentView } from '@ui/documents/models';
+
+export interface DocumentsProps {
+  view: DocumentView;
+}

@@ -3,16 +3,17 @@ import { IconButtonProps } from './icon-button-props';
 import { ElementConstructor } from '@ui/components/models';
 import { Icon } from '@ui/components/icon/icon';
 import styles from './icon-button.module.scss';
+import classNames from 'classnames';
 
 export const IconButton: ElementConstructor<
   IconButtonProps,
   HTMLButtonElement
-> = ({ iconName, onClick }) => {
+> = ({ iconName, onClick, className }) => {
   const icon = Icon({ iconName });
   const button = Button({
     children: icon,
     onClick,
-    className: styles.iconButton,
+    className: classNames(styles.iconButton, className),
   });
 
   return button;
