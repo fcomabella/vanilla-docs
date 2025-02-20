@@ -1,9 +1,9 @@
-import { ElementConstructor } from '@ui/components/models';
-import { OptionsBarProps } from '@ui/components/options-bar/options-bar-props';
-import styles from './options-bar.module.scss';
 import { Div } from '@ui/components/div';
 import { IconButton } from '@ui/components/icon-button/icon-button';
+import { ElementConstructor } from '@ui/components/models';
 import classNames from 'classnames';
+import { OptionsBarProps } from './options-bar-props';
+import styles from './options-bar.module.scss';
 
 export const OptionsBar: ElementConstructor<
   OptionsBarProps,
@@ -14,6 +14,7 @@ export const OptionsBar: ElementConstructor<
   });
 
   const listButton = IconButton({
+    label: 'View as list',
     iconName: 'view_list',
     className: classNames({ [styles.active]: view === 'list' }),
     onClick: () => {
@@ -24,6 +25,7 @@ export const OptionsBar: ElementConstructor<
     },
   });
   const gridButton = IconButton({
+    label: 'View as grid',
     iconName: 'view_module',
     className: classNames({ [styles.active]: view === 'grid' }),
     onClick: () => {

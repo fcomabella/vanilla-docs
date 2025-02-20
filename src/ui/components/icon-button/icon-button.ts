@@ -8,13 +8,14 @@ import classNames from 'classnames';
 export const IconButton: ElementConstructor<
   IconButtonProps,
   HTMLButtonElement
-> = ({ iconName, onClick, className }) => {
+> = ({ label, iconName, onClick, className }) => {
   const icon = Icon({ iconName });
   const button = Button({
     children: icon,
     onClick,
     className: classNames(styles.iconButton, className),
   });
+  button.setAttribute('aria-label', label);
 
   return button;
 };

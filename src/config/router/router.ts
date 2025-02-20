@@ -1,3 +1,4 @@
+import { Div } from '@ui/components/div';
 import { Router } from './models/router';
 import { Routes } from './models/routes';
 
@@ -34,16 +35,19 @@ export const createRouter = (routes: Routes): Router => {
   };
 
   const renderRoute = (url: URL): void => {
-    routes.forEach((route) => {
-      if (route.path === url.pathname) {
-        outlet.replaceChildren(
-          route.template({
-            searchParams: url.searchParams,
-            router: { navigate },
-          })
-        );
-      }
-    });
+    let children: HTMLElement = Div({ children: 'Not found' });
+
+    const route = routes.find((route) => route.path === url.pathname);
+
+    if (route) {
+      children = route.template({
+        searchParams: url.searchParams,
+        router: { navigate },
+      });
+    }
+
+    outlet.replaceChildren(children);
+
     previousUrl = url.href;
   };
 

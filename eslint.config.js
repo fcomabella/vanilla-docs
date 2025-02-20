@@ -22,7 +22,6 @@ export default tseslint.config(
       curly: ['error', 'all'],
       quotes: ['error', 'single'],
       eqeqeq: ['error', 'always'],
-      '@stylistic/indent': ['error', 2],
       '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/comma-dangle': [
         'error',

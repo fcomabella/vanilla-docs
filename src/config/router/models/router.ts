@@ -1,3 +1,3 @@
 export interface Router {
-  navigate: (path: string, searchParams?: URLSearchParams) => void;
+  navigate: (path: string | URL, searchParams?: URLSearchParams) => void;
 }
