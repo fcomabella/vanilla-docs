@@ -1,5 +1,5 @@
-import { Div } from '@ui/components/div';
-import { ElementConstructor } from '@ui/components/models';
+import { Div } from '@ui/shared/components/div';
+import { ElementConstructor } from '@ui/shared/models';
 import styles from './column-title-bar.module.scss';
 
 export const ColumnTitleBar: ElementConstructor<

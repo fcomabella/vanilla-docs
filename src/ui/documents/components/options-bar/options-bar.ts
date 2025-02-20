@@ -1,16 +1,21 @@
-import { Div } from '@ui/components/div';
-import { IconButton } from '@ui/components/icon-button/icon-button';
-import { ElementConstructor } from '@ui/components/models';
+import { Div } from '@ui/shared/components/div';
+import { IconButton } from '@ui/shared/components/icon-button/icon-button';
+import { ElementConstructor } from '@ui/shared/models';
 import classNames from 'classnames';
 import { OptionsBarProps } from './options-bar-props';
 import styles from './options-bar.module.scss';
+import { SortSelect } from '@ui/documents/components/sort-select';
 
 export const OptionsBar: ElementConstructor<
   OptionsBarProps,
   HTMLDivElement
-> = ({ router, searchParams, view }) => {
+> = ({ router, searchParams, view, sort }) => {
   const sortSelectorContainer = Div({
-    children: 'Sort by',
+    children: [
+      Div({ children: 'Sort by:' }),
+      SortSelect({ router, searchParams, sort }),
+    ],
+    className: styles.sortSelectorContainer,
   });
 
   const listButton = IconButton({

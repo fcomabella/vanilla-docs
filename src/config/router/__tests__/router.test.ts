@@ -1,6 +1,6 @@
 import { createRouter, outlet } from '@config/router/router';
 import { waitFor } from '@testing-library/dom';
-import { Div } from '@ui/components/div';
+import { Div } from '@ui/shared/components/div';
 
 describe('Router', () => {
   it('Should export an outlet div', () => {

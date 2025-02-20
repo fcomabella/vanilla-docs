@@ -1,14 +1,9 @@
 import { render } from '@__tests__/render';
-import { Router } from '@config/router/models/router';
 import { root } from '../root';
 import { screen } from '@testing-library/dom';
+import { navigateMock, routerMock } from '@config/router/__mocks__/router-mock';
 
 describe('Root page', () => {
-  const navigateMock = vi.fn();
-  const routerMock: Router = {
-    navigate: navigateMock,
-  };
-
   beforeEach(() => {
     navigateMock.mockClear();
   });

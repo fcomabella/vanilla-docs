@@ -1,6 +1,6 @@
-import { ElementConstructor } from '@ui/components/models';
+import { ElementConstructor } from '@ui/shared/models';
 import { DocumentsProps } from './documents-props';
-import { Div } from '@ui/components/div';
+import { Div } from '@ui/shared/components/div';
 import { Document } from '@ui/documents/components/document';
 import styles from './documents.module.scss';
 import { ColumnTitleBar } from '@ui/documents/components/column-title-bar';

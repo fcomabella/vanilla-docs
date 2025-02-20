@@ -1,4 +1,4 @@
-import { Div } from '@ui/components/div';
+import { Div } from '@ui/shared/components/div';
 import { Router } from './models/router';
 import { Routes } from './models/routes';
 

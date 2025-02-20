@@ -1002,7 +1002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
+"@types/node@npm:*, @types/node@npm:22.13.4":
   version: 22.13.4
   resolution: "@types/node@npm:22.13.4"
   dependencies:
@@ -4352,6 +4352,7 @@ __metadata:
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/jest-dom": "npm:6.6.3"
     "@testing-library/user-event": "npm:14.6.1"
+    "@types/node": "npm:22.13.4"
     "@vitest/coverage-v8": "npm:3.0.5"
     "@vitest/eslint-plugin": "npm:1.1.31"
     classnames: "npm:2.5.1"

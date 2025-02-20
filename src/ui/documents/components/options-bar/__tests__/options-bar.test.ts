@@ -1,25 +1,25 @@
 import { render } from '@__tests__/render';
-import { Router } from '@config/router/models/router';
+import { navigateMock, routerMock } from '@config/router/__mocks__/router-mock';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { OptionsBar } from '@ui/documents/components/options-bar/options-bar';
 
 describe('Options bar component', () => {
-  const navigateMock = vi.fn();
-  const router: Router = {
-    navigate: navigateMock,
-  };
-
   beforeEach(() => {
     navigateMock.mockClear();
   });
 
   it('Should render', () => {
     render(
-      OptionsBar({ router, searchParams: new URLSearchParams(), view: 'list' })
+      OptionsBar({
+        router: routerMock,
+        searchParams: new URLSearchParams(),
+        view: 'list',
+        sort: 'name',
+      })
     );
 
-    expect(screen.getByText('Sort by')).toBeInTheDocument();
+    expect(screen.getByText('Sort by:')).toBeInTheDocument();
     expect(screen.getByLabelText('View as list')).toBeInTheDocument();
     expect(screen.getByLabelText('View as grid')).toBeInTheDocument();
   });
@@ -28,7 +28,12 @@ describe('Options bar component', () => {
     const user = userEvent.setup();
 
     render(
-      OptionsBar({ router, searchParams: new URLSearchParams(), view: 'list' })
+      OptionsBar({
+        router: routerMock,
+        searchParams: new URLSearchParams(),
+        view: 'list',
+        sort: 'name',
+      })
     );
 
     const button = screen.getByLabelText('View as list');
@@ -42,7 +47,12 @@ describe('Options bar component', () => {
     const user = userEvent.setup();
 
     render(
-      OptionsBar({ router, searchParams: new URLSearchParams(), view: 'grid' })
+      OptionsBar({
+        router: routerMock,
+        searchParams: new URLSearchParams(),
+        view: 'grid',
+        sort: 'name',
+      })
     );
 
     const button = screen.getByLabelText('View as list');
@@ -56,7 +66,12 @@ describe('Options bar component', () => {
     const user = userEvent.setup();
 
     render(
-      OptionsBar({ router, searchParams: new URLSearchParams(), view: 'grid' })
+      OptionsBar({
+        router: routerMock,
+        searchParams: new URLSearchParams(),
+        view: 'grid',
+        sort: 'name',
+      })
     );
 
     const button = screen.getByLabelText('View as grid');
@@ -70,7 +85,12 @@ describe('Options bar component', () => {
     const user = userEvent.setup();
 
     render(
-      OptionsBar({ router, searchParams: new URLSearchParams(), view: 'list' })
+      OptionsBar({
+        router: routerMock,
+        searchParams: new URLSearchParams(),
+        view: 'list',
+        sort: 'name',
+      })
     );
 
     const button = screen.getByLabelText('View as grid');

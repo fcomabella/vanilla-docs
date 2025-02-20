@@ -1,5 +1,5 @@
-import { Div } from '@ui/components/div';
-import { ElementConstructor } from '@ui/components/models';
+import { Div } from '@ui/shared/components/div';
+import { ElementConstructor } from '@ui/shared/models';
 import { DocumentProps } from './document-props';
 import styles from './document.module.scss';
 import classNames from 'classnames';
