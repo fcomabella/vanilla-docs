@@ -19,7 +19,9 @@ describe('Root page', () => {
     );
 
     const mainElem = screen.getByRole('main');
+    const button = screen.getByRole('button', { name: 'New document' });
 
     expect(mainElem).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
   });
 });
