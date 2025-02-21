@@ -1,5 +1,5 @@
 import { DocumentSort, Document } from '@core/documents/domain/models';
 
 export type GetDocumentsUseCase = (
-  sort: DocumentSort
+  sort?: DocumentSort
 ) => Promise<Array<Document>>;

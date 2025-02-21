@@ -14,9 +14,9 @@ const sortMethods: Record<DocumentSort, (a: Document, b: Document) => number> =
   };
 
 export const GetDocuments: GetDocumentsFactory = ({ documentsRepository }) => {
-  return async (sort) => {
+  return async (sort = 'name') => {
     const documents = await documentsRepository.getDocuments();
 
-    return documents.sort(sortMethods[sort]);
+    return documents.sort(sortMethods[sort]).slice(0, 20);
   };
 };

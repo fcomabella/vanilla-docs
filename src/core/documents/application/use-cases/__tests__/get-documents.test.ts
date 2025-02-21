@@ -61,4 +61,18 @@ describe('GetDocuments use case', () => {
 
     expect(await getDocuments('version')).toStrictEqual(expected);
   });
+
+  it('Should return 20 documents', async () => {
+    const documents = DocumentsMother({ min: 50 });
+
+    getDocumentsMock.mockResolvedValueOnce(documents);
+
+    const getDocuments = GetDocuments({
+      documentsRepository: { getDocuments: getDocumentsMock },
+    });
+
+    const retrieved = await getDocuments();
+
+    expect(retrieved.length).toEqual(20);
+  });
 });
