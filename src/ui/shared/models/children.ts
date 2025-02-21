@@ -1,1 +1,1 @@
-export type Children = string | HTMLElement | Array<HTMLElement>;
+export type Children = string | HTMLElement | Array<HTMLElement | null> | null;

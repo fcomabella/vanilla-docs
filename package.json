@@ -1,8 +1,12 @@
 {
   "dependencies": {
+    "@faker-js/faker": "9.5.0",
     "@fontsource/material-icons": "5.1.1",
     "@fontsource/roboto": "5.1.1",
-    "classnames": "2.5.1"
+    "@typescript-eslint/utils": "8.24.1",
+    "awilix": "12.0.4",
+    "classnames": "2.5.1",
+    "zod": "3.24.2"
   },
   "devDependencies": {
     "@commitlint/cli": "19.7.1",
@@ -20,6 +24,7 @@
     "globals": "15.15.0",
     "husky": "9.1.7",
     "jsdom": "26.0.0",
+    "msw": "2.7.1",
     "prettier": "3.5.1",
     "sass-embedded": "1.85.0",
     "typescript": "5.7.2",

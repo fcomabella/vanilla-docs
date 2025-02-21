@@ -37,7 +37,7 @@ export const root: Template = ({ router, searchParams }) => {
         className: styles.header,
       }),
       OptionsBar({ router, searchParams, view, sort }),
-      Documents({ view }),
+      Documents({ view, sort }),
     ],
     className: styles.main,
   });

@@ -33,15 +33,14 @@
 .gridView {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 1.5rem;
+  text-align: center;
 }
 
 .detailsGridView {
   flex-shrink: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .contributorsGridView {

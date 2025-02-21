@@ -1,5 +1,6 @@
-import { DocumentView } from '@ui/documents/models';
+import { DocumentSort, DocumentView } from '@ui/documents/models';
 
 export interface DocumentsProps {
   view: DocumentView;
+  sort: DocumentSort;
 }

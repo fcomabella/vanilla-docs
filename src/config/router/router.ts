@@ -1,6 +1,7 @@
 import { Div } from '@ui/shared/components/div';
 import { Router } from './models/router';
 import { Routes } from './models/routes';
+import { populateChildren } from '@ui/shared/components/utils';
 
 export const outlet = document.createElement('div');
 
@@ -46,7 +47,7 @@ export const createRouter = (routes: Routes): Router => {
       });
     }
 
-    outlet.replaceChildren(children);
+    populateChildren(outlet, children);
 
     previousUrl = url.href;
   };

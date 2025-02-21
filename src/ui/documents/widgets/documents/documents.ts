@@ -1,44 +1,49 @@
 import { ElementConstructor } from '@ui/shared/models';
 import { DocumentsProps } from './documents-props';
 import { Div } from '@ui/shared/components/div';
-import { Document } from '@ui/documents/components/document';
 import styles from './documents.module.scss';
 import { ColumnTitleBar } from '@ui/documents/components/column-title-bar';
+import { container } from '@config/container';
+import { Document } from '@ui/documents/components/document';
+import { LoadingDocumentsError } from '@ui/documents/components/loading-documents-error';
+import { LoadingDocuments } from '@ui/documents/components/loading-documents';
+import { populateChildren } from '@ui/shared/components/utils';
 
 export const Documents: ElementConstructor<DocumentsProps, HTMLDivElement> = ({
   view,
+  sort,
 }) => {
-  const children: Array<HTMLElement> = [];
+  const controller = container.resolve('getDocumentsController');
+
   let className = styles.listView;
 
+  let titleBarElem: HTMLDivElement | null = null;
+
   if (view === 'list') {
-    children.push(ColumnTitleBar({}));
+    titleBarElem = ColumnTitleBar({});
   }
+
+  const loadingElem = LoadingDocuments;
 
   if (view === 'grid') {
     className = styles.gridView;
   }
 
-  children.push(
-    ...Array(4)
-      .fill(undefined)
-      .map((_, index) =>
-        Document({
-          document: {
-            name: `Document ${index + 1}`,
-            version: index.toString(),
-            attachments: ['Attachment 1', 'Attachment 2'],
-            contributors: ['Contributor 1', 'Contributor 2'],
-          },
-          view,
-        })
-      )
-  );
-
-  const elem = Div({
-    children,
+  const rootElem = Div({
+    children: [titleBarElem, loadingElem],
     className,
   });
 
-  return elem;
+  controller(sort)
+    .then((documents) => {
+      populateChildren(rootElem, [
+        titleBarElem,
+        ...documents.map((document) => Document({ document, view })),
+      ]);
+    })
+    .catch(() => {
+      populateChildren(rootElem, [titleBarElem, LoadingDocumentsError]);
+    });
+
+  return rootElem;
 };
