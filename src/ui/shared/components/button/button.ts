@@ -9,13 +9,20 @@ export const Button: ElementConstructor<ButtonProps, HTMLButtonElement> = ({
   type = 'button',
   className,
   onClick = null,
+  fullWidth = false,
 }) => {
   const button = document.createElement('button');
 
   populateChildren(button, children);
 
   button.type = type;
-  button.className = classNames(styles.button, className);
+  button.className = classNames(
+    styles.button,
+    {
+      [styles.fullWidth]: fullWidth,
+    },
+    className
+  );
   button.onclick = onClick;
 
   return button;

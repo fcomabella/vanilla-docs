@@ -1,12 +1,13 @@
 import { Template } from '@config/router/models/template';
-import { Header } from '@ui/shared/components/header';
-import { Main } from '@ui/shared/components/main/main';
 import { OptionsBar } from '@ui/documents/components/options-bar';
-import { Documents } from '@ui/documents/widgets/documents';
-import styles from './root.module.scss';
 import { DocumentSort, DocumentView } from '@ui/documents/models';
 import { isDocumentView } from '@ui/documents/type-guards';
 import { isDocumentSort } from '@ui/documents/type-guards/is-document-sort';
+import { Documents } from '@ui/documents/widgets/documents';
+import { Button } from '@ui/shared/components/button';
+import { Header } from '@ui/shared/components/header';
+import { Main } from '@ui/shared/components/main/main';
+import styles from './root.module.scss';
 
 export const root: Template = ({ router, searchParams }) => {
   const paramsView = searchParams.get('view');
@@ -34,12 +35,18 @@ export const root: Template = ({ router, searchParams }) => {
       Header({
         type: 'h1',
         children: 'Documents',
-        className: styles.header,
       }),
       OptionsBar({ router, searchParams, view, sort }),
       Documents({ view, sort }),
+      Button({
+        children: 'New document',
+        fullWidth: true,
+        onClick: () => {
+          router.navigate('/new-document');
+        },
+        className: styles.button,
+      }),
     ],
-    className: styles.main,
   });
 
   return main;

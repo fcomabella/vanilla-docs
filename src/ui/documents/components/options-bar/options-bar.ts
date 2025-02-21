@@ -1,10 +1,10 @@
+import { SortSelect } from '@ui/documents/components/sort-select';
 import { Div } from '@ui/shared/components/div';
 import { IconButton } from '@ui/shared/components/icon-button/icon-button';
 import { ElementConstructor } from '@ui/shared/models';
 import classNames from 'classnames';
 import { OptionsBarProps } from './options-bar-props';
 import styles from './options-bar.module.scss';
-import { SortSelect } from '@ui/documents/components/sort-select';
 
 export const OptionsBar: ElementConstructor<
   OptionsBarProps,
@@ -21,7 +21,10 @@ export const OptionsBar: ElementConstructor<
   const listButton = IconButton({
     label: 'View as list',
     iconName: 'view_list',
-    className: classNames({ [styles.active]: view === 'list' }),
+    className: classNames({
+      [styles.active]: view === 'list',
+      [styles.inactive]: view !== 'list',
+    }),
     onClick: () => {
       if (view !== 'list') {
         searchParams.set('view', 'list');
@@ -32,7 +35,10 @@ export const OptionsBar: ElementConstructor<
   const gridButton = IconButton({
     label: 'View as grid',
     iconName: 'view_module',
-    className: classNames({ [styles.active]: view === 'grid' }),
+    className: classNames({
+      [styles.active]: view === 'grid',
+      [styles.inactive]: view !== 'grid',
+    }),
     onClick: () => {
       if (view !== 'grid') {
         searchParams.set('view', 'grid');

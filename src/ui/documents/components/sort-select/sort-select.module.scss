@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   padding: 0;
+  background-color: transparent;
 }
 
 .label {
@@ -36,7 +37,9 @@
         border-bottom-left-radius: 0.25rem;
         border-bottom-right-radius: 0.25rem;
       }
+      border-radius: 0;
       background-color: aqua;
+
       &:not(:first-of-type) {
         border-top: 0.0625rem solid blue;
       }

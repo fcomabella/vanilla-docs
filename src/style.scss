@@ -60,6 +60,7 @@ h4,
 h5,
 h6 {
   text-wrap: balance;
+  font-weight: bold;
 }
 
 .material-icons {
@@ -85,4 +86,13 @@ h6 {
 
   /* Support for IE. */
   font-feature-settings: 'liga';
+}
+
+main {
+  margin: 0 auto;
+  max-width: 80rem;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
