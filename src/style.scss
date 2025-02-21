@@ -96,3 +96,12 @@ main {
   flex-direction: column;
   gap: 1.5rem;
 }
+
+button {
+  border: 0.0625rem solid transparent;
+  border-radius: 0.25rem;
+
+  &:hover {
+    border-color: #77787a;
+  }
+}

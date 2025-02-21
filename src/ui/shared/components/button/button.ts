@@ -23,7 +23,10 @@ export const Button: ElementConstructor<ButtonProps, HTMLButtonElement> = ({
     },
     className
   );
-  button.onclick = onClick;
+
+  if (onClick !== null) {
+    button.addEventListener('click', onClick);
+  }
 
   return button;
 };

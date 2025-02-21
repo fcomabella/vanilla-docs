@@ -1,4 +1,4 @@
-import { Children } from '@ui/shared/models';
+import { Child, Children } from '@ui/shared/models';
 
 export const populateChildren = (
   parent: HTMLElement,
@@ -8,14 +8,11 @@ export const populateChildren = (
     return;
   }
 
-  if (typeof children === 'string') {
-    parent.textContent = children;
-    return;
-  }
-
   if (Array.isArray(children)) {
     parent.replaceChildren(
-      ...children.filter((child): child is HTMLElement => child !== null)
+      ...children.filter(
+        (child): child is Exclude<Child, null> => child !== null
+      )
     );
     return;
   }

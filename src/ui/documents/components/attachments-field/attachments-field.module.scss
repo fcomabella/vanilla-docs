@@ -1,0 +1,21 @@
+.attachmentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addAttachment {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.label {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  input {
+    flex-grow: 1;
+  }
+}

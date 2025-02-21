@@ -1,1 +1,3 @@
-export type Children = string | HTMLElement | Array<HTMLElement | null> | null;
+import { Child } from './child';
+
+export type Children = Child | Array<Child>;
