@@ -125,7 +125,6 @@ describe('SortSelect component', () => {
   sorts.forEach((originSort) => {
     sorts.forEach((destinationSort) => {
       if (originSort === destinationSort) {
-        // eslint-disable-next-line @stylistic/max-len
         it(`Should not navigate from ${originSort} to ${destinationSort}`, async () => {
           const user = userEvent.setup();
 
@@ -159,7 +158,6 @@ describe('SortSelect component', () => {
           ).not.toBeInTheDocument();
         });
       } else {
-        // eslint-disable-next-line @stylistic/max-len
         it(`Should navigate from ${originSort} to ${destinationSort}`, async () => {
           const user = userEvent.setup();
 
