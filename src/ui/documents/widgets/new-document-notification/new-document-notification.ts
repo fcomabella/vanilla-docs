@@ -3,6 +3,7 @@ import { Div } from '@ui/shared/components/div';
 import { ElementConstructor } from '@ui/shared/models';
 import styles from './new-document-notification.module.scss';
 import { Icon } from '@ui/shared/components/icon/icon';
+import { populateChildren } from '@ui/shared/components/utils';
 
 export const NewDocumentNotification: ElementConstructor<
   Record<string, never>,
@@ -12,6 +13,17 @@ export const NewDocumentNotification: ElementConstructor<
   let notificationsCount = 0;
 
   const listener = (): void => {
+    if (notificationContainer === null) {
+      notificationContainer = Div({
+        children: [
+          countContainer,
+          Div({ children: 'New documents', className: styles.label }),
+        ],
+        className: styles.root,
+      });
+      populateChildren(rootElem, notificationContainer);
+    }
+
     notificationsCount = notificationsCount + 1;
     countElem.textContent =
       notificationsCount < 99 ? notificationsCount.toString() : '+99';
@@ -26,7 +38,7 @@ export const NewDocumentNotification: ElementConstructor<
     }
   });
 
-  observer.observe(document.body, { childList: true, subtree: true });
+  observer.observe(document.body, { subtree: true, childList: true });
 
   const countElem = Div({
     children: null,
@@ -41,12 +53,10 @@ export const NewDocumentNotification: ElementConstructor<
     className: styles.countContainer,
   });
 
+  let notificationContainer: HTMLDivElement | null = null;
+
   const rootElem = Div({
-    children: [
-      countContainer,
-      Div({ children: 'New documents', className: styles.label }),
-    ],
-    className: styles.root,
+    children: null,
   });
 
   return rootElem;

@@ -28,22 +28,26 @@ export const WebsocketSubject: WebsocketFactory = () => {
     socket.removeEventListener('message', messageListener);
   };
 
-  const socket = new WebSocket(WS_BASE_URL);
-
-  socket.addEventListener('open', () => {
-    addMessageEventListener();
-  });
-
-  socket.addEventListener('close', () => {
-    removeMessageEventListener();
-  });
-
-  socket.addEventListener('error', () => {
-    removeMessageEventListener();
-  });
+  let socket: WebSocket | undefined = undefined;
 
   return {
     addListener: (callback: (message: unknown) => void): (() => void) => {
+      if (!socket || socket.readyState === WebSocket.CLOSED) {
+        socket = new WebSocket(WS_BASE_URL);
+
+        socket.addEventListener('open', () => {
+          addMessageEventListener();
+        });
+
+        socket.addEventListener('close', () => {
+          removeMessageEventListener();
+        });
+
+        socket.addEventListener('error', () => {
+          removeMessageEventListener();
+        });
+      }
+
       const found = listeners.find(callback);
 
       if (!found) {
@@ -52,6 +56,16 @@ export const WebsocketSubject: WebsocketFactory = () => {
 
       return () => {
         listeners = listeners.filter((registered) => registered !== callback);
+
+        if (listeners.length === 0) {
+          if (!socket) {
+            return;
+          }
+
+          removeMessageEventListener();
+          socket.close();
+          socket = undefined;
+        }
       };
     },
   };
