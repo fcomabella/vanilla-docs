@@ -7,6 +7,7 @@ import { populateChildren } from '@ui/shared/components/utils';
 import { ElementConstructor } from '@ui/shared/models';
 import { AttachmentsFieldProps } from './attachments-field-props';
 import styles from './attachments-field.module.scss';
+import { ATTACHMENT_NAME_MIN_LENGTH } from '@ui/documents/constants';
 
 export const AttachmentsField: ElementConstructor<
   AttachmentsFieldProps,
@@ -44,6 +45,12 @@ export const AttachmentsField: ElementConstructor<
       if (!attachmentName || typeof attachmentName !== 'string') {
         rootElem.appendChild(errorMessage);
         errorMessage.textContent = 'You must write the attachment name';
+        return;
+      }
+
+      if (attachmentName.length < ATTACHMENT_NAME_MIN_LENGTH) {
+        rootElem.appendChild(errorMessage);
+        errorMessage.textContent = `The attachment name must have ${ATTACHMENT_NAME_MIN_LENGTH} or more letters.`;
         return;
       }
 

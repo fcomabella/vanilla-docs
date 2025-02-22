@@ -7,6 +7,7 @@ import { populateChildren } from '@ui/shared/components/utils';
 import { ElementConstructor } from '@ui/shared/models';
 import { ContributorsFieldProps } from './contributors-field-props';
 import styles from './contributors-field.module.scss';
+import { CONTRIBUTOR_NAME_MIN_LENGTH } from '@ui/documents/constants';
 
 export const ContributorsField: ElementConstructor<
   ContributorsFieldProps,
@@ -48,6 +49,12 @@ export const ContributorsField: ElementConstructor<
       if (!contributorName || typeof contributorName !== 'string') {
         rootElem.appendChild(errorMessage);
         errorMessage.textContent = 'You must write the contributor name';
+        return;
+      }
+
+      if (contributorName.length < CONTRIBUTOR_NAME_MIN_LENGTH) {
+        rootElem.appendChild(errorMessage);
+        errorMessage.textContent = `The contributor name must have ${CONTRIBUTOR_NAME_MIN_LENGTH} or more letters.`;
         return;
       }
 

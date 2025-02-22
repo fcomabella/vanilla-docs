@@ -2,6 +2,7 @@ import { renderInForm } from '@__tests__/render-in-form';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { ContributorsField } from '@ui/documents/components/contributors-field/contributors-field';
+import { CONTRIBUTOR_NAME_MIN_LENGTH } from '@ui/documents/constants';
 
 describe('ContributorsField component', () => {
   it('Should render', () => {
@@ -109,6 +110,34 @@ describe('ContributorsField component', () => {
 
     expect(
       screen.getByText('You must write the contributor name')
+    ).toBeInTheDocument();
+  });
+
+  it('Should show the contributor name min length message', async () => {
+    const contributorName = '12';
+    const user = userEvent.setup();
+
+    renderInForm(ContributorsField({}));
+
+    const addContributorButton = screen.getByRole('button', {
+      name: 'Add contributor',
+    });
+    await user.click(addContributorButton);
+
+    const contributorNameInput = screen.getByRole('textbox', {
+      name: 'Contributor name:',
+    });
+
+    await user.type(contributorNameInput, contributorName);
+
+    const saveButton = screen.getByRole('button', { name: 'Save' });
+
+    await user.click(saveButton);
+
+    expect(
+      screen.getByText(
+        `The contributor name must have ${CONTRIBUTOR_NAME_MIN_LENGTH} or more letters.`
+      )
     ).toBeInTheDocument();
   });
 

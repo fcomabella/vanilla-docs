@@ -2,6 +2,7 @@ import { renderInForm } from '@__tests__/render-in-form';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { AttachmentsField } from '@ui/documents/components/attachments-field/attachments-field';
+import { ATTACHMENT_NAME_MIN_LENGTH } from '@ui/documents/constants';
 
 describe('AttachmentsField component', () => {
   it('Should render', () => {
@@ -13,7 +14,7 @@ describe('AttachmentsField component', () => {
     ).toBeInTheDocument();
   });
 
-  it('Should display the add attachment interface', async () => {
+  it('Should display the add attachment user interface', async () => {
     const user = userEvent.setup();
 
     renderInForm(AttachmentsField({}));
@@ -109,6 +110,34 @@ describe('AttachmentsField component', () => {
 
     expect(
       screen.getByText('You must write the attachment name')
+    ).toBeInTheDocument();
+  });
+
+  it('Should show the attachment min length message', async () => {
+    const attachmentName = '12';
+    const user = userEvent.setup();
+
+    renderInForm(AttachmentsField({}));
+
+    const addAttachmentButton = screen.getByRole('button', {
+      name: 'Add attachment',
+    });
+    await user.click(addAttachmentButton);
+
+    const attachmentNameInput = screen.getByRole('textbox', {
+      name: 'Attachment name:',
+    });
+
+    await user.type(attachmentNameInput, attachmentName);
+
+    const saveButton = screen.getByRole('button', { name: 'Save' });
+
+    await user.click(saveButton);
+
+    expect(
+      screen.getByText(
+        `The attachment name must have ${ATTACHMENT_NAME_MIN_LENGTH} or more letters.`
+      )
     ).toBeInTheDocument();
   });
 
