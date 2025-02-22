@@ -8,12 +8,22 @@ export const Document: ElementConstructor<DocumentProps, HTMLDivElement> = ({
   document,
   view,
 }) => {
+  const [language] = navigator.languages;
+  const creationDate = new Intl.DateTimeFormat(language, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(document.creationDate);
+
   const container = Div({
     children: [
       Div({
         children: [
           Div({ children: document.name, className: styles.name }),
           Div({ children: `Version: ${document.version}` }),
+          Div({ children: `Created at: ${creationDate}` }),
         ],
         className: classNames({
           [styles.detailsListView]: view === 'list',

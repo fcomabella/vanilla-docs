@@ -10,6 +10,7 @@ const mapper = (document: Document): DocumentViewModel => {
     attachments: document.Attachments,
     contributors: document.Contributors.map((contributor) => contributor.Name),
     version: document.Version,
+    creationDate: document.CreatedAt,
   };
 };
 

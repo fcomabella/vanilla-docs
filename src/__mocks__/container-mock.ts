@@ -1,18 +1,16 @@
-import { Document } from '@core/documents/domain/models';
-import { DocumentsRepositoryFactory } from '@core/documents/domain/ports';
-import { GetDocumentsController } from '@ui/documents/models';
-
-export const documentsRepositoryMock = vi.fn<DocumentsRepositoryFactory>(
-  () => ({
-    getDocuments: vi.fn<() => Promise<Array<Document>>>(),
-  })
-);
+import { documentsRepositoryMock } from '@core/documents/domain/ports/__mocks__/documents-repository-mock';
+import {
+  GetDocumentsController,
+  SaveDocumentController,
+} from '@ui/documents/models';
 
 export const getDocumentsControllerMock = vi.fn<GetDocumentsController>();
+export const saveDocumentControllerMock = vi.fn<SaveDocumentController>();
 
 export const resolutions = {
   documentsRepository: documentsRepositoryMock,
   getDocumentsController: getDocumentsControllerMock,
+  saveDocumentController: saveDocumentControllerMock,
 };
 
 export const resolveMock = vi.fn(

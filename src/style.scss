@@ -101,7 +101,12 @@ button {
   border: 0.0625rem solid transparent;
   border-radius: 0.25rem;
 
-  &:hover {
+  &:hover:not(:disabled) {
     border-color: #77787a;
+  }
+
+  &:disabled {
+    color: #77787a;
+    cursor: not-allowed;
   }
 }

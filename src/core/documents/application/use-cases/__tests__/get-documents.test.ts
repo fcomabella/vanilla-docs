@@ -5,7 +5,10 @@ import {
   sortDocumentsByVersion,
 } from '@core/documents/application/utils';
 import { DocumentsMother } from '@core/documents/domain/models/__mocks__/documents-mother';
-import { getDocumentsMock } from '@core/documents/domain/ports/__mocks__/documents-repositor-mock';
+import {
+  documentsRepositoryMock,
+  getDocumentsMock,
+} from '@core/documents/domain/ports/__mocks__/documents-repository-mock';
 
 describe('GetDocuments use case', () => {
   it('Sould be a function', () => {
@@ -14,7 +17,7 @@ describe('GetDocuments use case', () => {
 
   it('Should return a function', () => {
     const getDocuments = GetDocuments({
-      documentsRepository: { getDocuments: getDocumentsMock },
+      documentsRepository: documentsRepositoryMock,
     });
 
     expect(getDocuments).toBeInstanceOf(Function);
@@ -28,7 +31,7 @@ describe('GetDocuments use case', () => {
     getDocumentsMock.mockResolvedValueOnce(documents);
 
     const getDocuments = GetDocuments({
-      documentsRepository: { getDocuments: getDocumentsMock },
+      documentsRepository: documentsRepositoryMock,
     });
 
     expect(await getDocuments('name')).toStrictEqual(expected);
@@ -42,7 +45,7 @@ describe('GetDocuments use case', () => {
     getDocumentsMock.mockResolvedValueOnce(documents);
 
     const getDocuments = GetDocuments({
-      documentsRepository: { getDocuments: getDocumentsMock },
+      documentsRepository: documentsRepositoryMock,
     });
 
     expect(await getDocuments('created')).toStrictEqual(expected);
@@ -56,7 +59,7 @@ describe('GetDocuments use case', () => {
     getDocumentsMock.mockResolvedValueOnce(documents);
 
     const getDocuments = GetDocuments({
-      documentsRepository: { getDocuments: getDocumentsMock },
+      documentsRepository: documentsRepositoryMock,
     });
 
     expect(await getDocuments('version')).toStrictEqual(expected);
@@ -68,7 +71,7 @@ describe('GetDocuments use case', () => {
     getDocumentsMock.mockResolvedValueOnce(documents);
 
     const getDocuments = GetDocuments({
-      documentsRepository: { getDocuments: getDocumentsMock },
+      documentsRepository: documentsRepositoryMock,
     });
 
     const retrieved = await getDocuments();

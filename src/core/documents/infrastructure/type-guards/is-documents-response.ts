@@ -5,6 +5,5 @@ export const isDocumentsResponse = (
   dto: unknown
 ): dto is Array<DocumentResponse> => {
   const { success } = documentsSchema.safeParse(dto);
-
   return success;
 };

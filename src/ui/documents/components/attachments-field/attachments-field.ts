@@ -5,12 +5,13 @@ import { InputField } from '@ui/shared/components/input-field/input-field';
 import { Label } from '@ui/shared/components/label';
 import { populateChildren } from '@ui/shared/components/utils';
 import { ElementConstructor } from '@ui/shared/models';
+import { AttachmentsFieldProps } from './attachments-field-props';
 import styles from './attachments-field.module.scss';
 
 export const AttachmentsField: ElementConstructor<
-  Record<string, never>,
+  AttachmentsFieldProps,
   HTMLDivElement
-> = () => {
+> = ({ onAddEnd, onAddStart }) => {
   const refreshAttachments = (): void => {
     populateChildren(rootElem, [titleElem, ...attachments, addAtachmentButton]);
   };
@@ -27,18 +28,22 @@ export const AttachmentsField: ElementConstructor<
     className: styles.label,
   });
 
+  const errorMessage = Div({ children: null, className: styles.error });
+
   const saveAttachmentButton = Button({
     children: 'Save',
     onClick: function () {
+      try {
+        rootElem.removeChild(errorMessage);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (e) {}
+
       const formValues = new FormData(this.form ?? undefined);
       const attachmentName = formValues.get('new-attachment-name');
 
-      if (typeof attachmentName !== 'string') {
-        return;
-      }
-
-      if (!attachmentName) {
-        alert('You must write the attachment name');
+      if (!attachmentName || typeof attachmentName !== 'string') {
+        rootElem.appendChild(errorMessage);
+        errorMessage.textContent = 'You must write the attachment name';
         return;
       }
 
@@ -49,7 +54,7 @@ export const AttachmentsField: ElementConstructor<
         id: inputId,
         name: 'attachment',
         type: 'hidden',
-        value: (attachmentName as string) ?? '',
+        value: attachmentName,
       });
 
       const deleteAttachmentButton = IconButton({
@@ -77,6 +82,7 @@ export const AttachmentsField: ElementConstructor<
       attachmentField.value = '';
 
       refreshAttachments();
+      onAddEnd?.();
     },
   });
 
@@ -85,6 +91,7 @@ export const AttachmentsField: ElementConstructor<
     onClick: () => {
       attachmentField.value = '';
       refreshAttachments();
+      onAddEnd?.();
     },
   });
 
@@ -103,6 +110,7 @@ export const AttachmentsField: ElementConstructor<
     children: 'Add attachment',
     onClick: () => {
       rootElem.replaceChild(addAttachmentElem, addAtachmentButton);
+      onAddStart?.();
     },
   });
 

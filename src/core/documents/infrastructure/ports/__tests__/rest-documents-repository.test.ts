@@ -1,7 +1,9 @@
+import { DocumentMother } from '@core/documents/domain/models/__mocks__/document-mother';
+import { LOCAL_STORAGE_DOCUMENTS_KEY } from '@core/documents/infrastructure/constants/local-storage-documents-key';
 import { DocumentResponseMother } from '@core/documents/infrastructure/models/__mocks__/document-response-mother';
 import { DocumentsResponseMother } from '@core/documents/infrastructure/models/__mocks__/documents-response-mother';
 import {
-  documentMapper,
+  documentResponseToDocument,
   RestDocumentsRepository,
 } from '@core/documents/infrastructure/ports/rest-documents-repository';
 
@@ -27,7 +29,18 @@ describe('RestDocumentsRepository', () => {
   describe('getDocuments method', () => {
     it('Should return the documents', async () => {
       const documents = DocumentsResponseMother();
-      const expected = documents.map((document) => documentMapper(document));
+      const localStorageDocuments = DocumentsResponseMother();
+      const localStorageSpy = vi.spyOn(Storage.prototype, 'getItem');
+      localStorageSpy.mockReturnValueOnce(
+        JSON.stringify(localStorageDocuments)
+      );
+
+      const expected = [
+        ...documents.map((document) => documentResponseToDocument(document)),
+        ...localStorageDocuments.map((document) =>
+          documentResponseToDocument(document)
+        ),
+      ];
 
       fetchFnMock.mockResolvedValueOnce(documents);
 
@@ -52,6 +65,26 @@ describe('RestDocumentsRepository', () => {
 
       await expect(() => repository.getDocuments()).rejects.toThrowError(
         Error('Server has sent invalid data')
+      );
+    });
+  });
+
+  describe('saveDocument method', () => {
+    it('Should save the document to localStorage', async () => {
+      const document = DocumentMother();
+      const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+
+      const repository = RestDocumentsRepository({
+        fetchFn: fetchFnMock,
+      });
+
+      await repository.saveDocument(document);
+
+      const expected = JSON.stringify([document]);
+
+      expect(setItemSpy).toHaveBeenCalledWith(
+        LOCAL_STORAGE_DOCUMENTS_KEY,
+        expected
       );
     });
   });

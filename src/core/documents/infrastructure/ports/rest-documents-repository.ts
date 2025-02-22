@@ -3,15 +3,33 @@ import { DocumentsRepositoryFactory } from '@core/documents/domain/ports';
 import { DOCUMENTS_BASE_URL } from '@core/documents/infrastructure/constants';
 import { DocumentResponse } from '@core/documents/infrastructure/models';
 import { isDocumentsResponse } from '@core/documents/infrastructure/type-guards/is-documents-response';
+import {
+  fetchDocumentsFromLocalStorage,
+  saveDocument,
+} from '@core/shared/infrastructure/utils/local-storage-documents';
 
-export const documentMapper = (dto: DocumentResponse): Document => ({
-  Attachments: dto.Attachments,
-  Contributors: dto.Contributors,
-  CreatedAt: new Date(dto.CreatedAt),
-  ID: dto.ID,
-  Title: dto.Title,
-  UpdatedAt: new Date(dto.UpdatedAt),
-  Version: dto.Version,
+export const documentResponseToDocument = (
+  documentResponse: DocumentResponse
+): Document => ({
+  Attachments: documentResponse.Attachments,
+  Contributors: documentResponse.Contributors,
+  CreatedAt: new Date(documentResponse.CreatedAt),
+  ID: documentResponse.ID,
+  Title: documentResponse.Title,
+  UpdatedAt: new Date(documentResponse.UpdatedAt),
+  Version: documentResponse.Version,
+});
+
+export const documentToDocumentResponse = (
+  document: Document
+): DocumentResponse => ({
+  Attachments: document.Attachments,
+  Contributors: document.Contributors,
+  CreatedAt: document.CreatedAt.toISOString(),
+  ID: document.ID,
+  Title: document.Title,
+  UpdatedAt: document.UpdatedAt.toISOString(),
+  Version: document.Version,
 });
 
 export const RestDocumentsRepository: DocumentsRepositoryFactory = ({
@@ -19,13 +37,23 @@ export const RestDocumentsRepository: DocumentsRepositoryFactory = ({
 }) => {
   return {
     getDocuments: async (): Promise<Array<Document>> => {
-      const response = await fetchFn(DOCUMENTS_BASE_URL);
+      const responses = await Promise.all([
+        fetchFn(DOCUMENTS_BASE_URL),
+        fetchDocumentsFromLocalStorage(),
+      ]);
+
+      const response = responses.flat();
 
       if (!isDocumentsResponse(response)) {
         throw new Error('Server has sent invalid data');
       }
 
-      return response.map((dto) => documentMapper(dto));
+      return response.map((dto) => documentResponseToDocument(dto));
+    },
+
+    saveDocument: async (document): Promise<void> => {
+      const documentResponse = documentToDocumentResponse(document);
+      saveDocument(documentResponse);
     },
   };
 };

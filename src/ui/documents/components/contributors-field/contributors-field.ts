@@ -1,16 +1,17 @@
+import { Button } from '@ui/shared/components/button';
+import { Div } from '@ui/shared/components/div';
+import { IconButton } from '@ui/shared/components/icon-button/icon-button';
 import { InputField } from '@ui/shared/components/input-field/input-field';
 import { Label } from '@ui/shared/components/label';
-import { ElementConstructor } from '@ui/shared/models';
-import styles from './contributors-field.module.scss';
-import { Button } from '@ui/shared/components/button';
-import { IconButton } from '@ui/shared/components/icon-button/icon-button';
-import { Div } from '@ui/shared/components/div';
 import { populateChildren } from '@ui/shared/components/utils';
+import { ElementConstructor } from '@ui/shared/models';
+import { ContributorsFieldProps } from './contributors-field-props';
+import styles from './contributors-field.module.scss';
 
 export const ContributorsField: ElementConstructor<
-  Record<string, never>,
+  ContributorsFieldProps,
   HTMLDivElement
-> = () => {
+> = ({ onAddEnd, onAddStart }) => {
   const refreshContributors = (): void => {
     populateChildren(rootElem, [
       titleElem,
@@ -31,18 +32,22 @@ export const ContributorsField: ElementConstructor<
     className: styles.label,
   });
 
+  const errorMessage = Div({ children: null, className: styles.error });
+
   const saveContributtorButton = Button({
     children: 'Save',
     onClick: function () {
+      try {
+        rootElem.removeChild(errorMessage);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (e) {}
+
       const formValues = new FormData(this.form ?? undefined);
       const contributorName = formValues.get('new-contributor-name');
 
-      if (typeof contributorName !== 'string') {
-        return;
-      }
-
-      if (!contributorName) {
-        alert('You must write the contributor name');
+      if (!contributorName || typeof contributorName !== 'string') {
+        rootElem.appendChild(errorMessage);
+        errorMessage.textContent = 'You must write the contributor name';
         return;
       }
 
@@ -81,6 +86,7 @@ export const ContributorsField: ElementConstructor<
       contributorField.value = '';
 
       refreshContributors();
+      onAddEnd?.();
     },
   });
 
@@ -89,6 +95,7 @@ export const ContributorsField: ElementConstructor<
     onClick: () => {
       contributorField.value = '';
       refreshContributors();
+      onAddEnd?.();
     },
   });
 
@@ -107,6 +114,7 @@ export const ContributorsField: ElementConstructor<
     children: 'Add contributor',
     onClick: () => {
       rootElem.replaceChild(addContributorElem, addContributorButton);
+      onAddStart?.();
     },
   });
 

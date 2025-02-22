@@ -1,7 +1,6 @@
-export interface Document {
+export interface NewDocument {
   name: string;
   version: string;
   contributors: Array<string>;
   attachments: Array<string>;
-  creationDate: Date;
 }

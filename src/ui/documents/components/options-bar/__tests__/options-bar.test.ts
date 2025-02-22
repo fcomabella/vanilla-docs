@@ -5,10 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { OptionsBar } from '@ui/documents/components/options-bar/options-bar';
 
 describe('Options bar component', () => {
-  beforeEach(() => {
-    navigateMock.mockClear();
-  });
-
   it('Should render', () => {
     render(
       OptionsBar({

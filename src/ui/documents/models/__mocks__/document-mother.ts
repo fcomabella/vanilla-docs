@@ -8,4 +8,5 @@ export const DocumentMother = (): Document => ({
   contributors: ContributorsMother(),
   name: faker.system.fileName(),
   version: faker.system.semver(),
+  creationDate: faker.date.anytime(),
 });

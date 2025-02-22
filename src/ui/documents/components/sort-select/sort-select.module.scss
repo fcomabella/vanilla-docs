@@ -29,16 +29,22 @@
     background-color: transparent;
 
     &:hover {
-      &:first-of-type {
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
-      }
-      &:last-of-type {
-        border-bottom-left-radius: 0.25rem;
-        border-bottom-right-radius: 0.25rem;
-      }
       border-radius: 0;
       background-color: aqua;
+      border-left-color: transparent;
+      border-right-color: transparent;
+
+      &:first-of-type {
+        border-top-left-radius: 0.125rem;
+        border-top-right-radius: 0.125rem;
+        border-top-color: transparent;
+      }
+
+      &:last-of-type {
+        border-bottom-left-radius: 0.125rem;
+        border-bottom-right-radius: 0.125rem;
+        border-bottom-color: transparent;
+      }
 
       &:not(:first-of-type) {
         border-top: 0.0625rem solid blue;

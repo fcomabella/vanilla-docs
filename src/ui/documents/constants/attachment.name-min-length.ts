@@ -1,0 +1,1 @@
+export const ATTACHMENT_NAME_MIN_LENGTH = 3;

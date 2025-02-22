@@ -41,7 +41,7 @@ export default tseslint.config(
           ignoreTrailingComments: true,
           ignoreUrls: true,
           ignoreStrings: true,
-          ignoreTemplateLiterals: false,
+          ignoreTemplateLiterals: true,
           ignoreRegExpLiterals: true,
         },
       ],
