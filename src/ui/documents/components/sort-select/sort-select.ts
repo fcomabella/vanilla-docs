@@ -40,9 +40,10 @@ export const SortSelect: ElementConstructor<
     document.body.removeEventListener('mousedown', documentOnClick);
     try {
       document.body.removeChild(dropdown);
-    } catch (e) {
-      console.error(e);
-    }
+      // This block is added because the test runner throws when removing a
+      // children
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {}
     open = false;
   };
 
