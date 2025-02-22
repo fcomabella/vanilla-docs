@@ -8,6 +8,7 @@ import { Button } from '@ui/shared/components/button';
 import { Header } from '@ui/shared/components/header';
 import { Main } from '@ui/shared/components/main/main';
 import styles from './root.module.scss';
+import { NewDocumentNotification } from '@ui/documents/widgets/new-document-notification/new-document-notification';
 
 export const root: Template = ({ router, searchParams }) => {
   const paramsView = searchParams.get('view');
@@ -32,6 +33,7 @@ export const root: Template = ({ router, searchParams }) => {
 
   const main = Main({
     children: [
+      NewDocumentNotification({}),
       Header({
         type: 'h1',
         children: 'Documents',

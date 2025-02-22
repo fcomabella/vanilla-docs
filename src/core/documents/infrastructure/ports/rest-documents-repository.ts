@@ -2,7 +2,7 @@ import { Document } from '@core/documents/domain/models';
 import { DocumentsRepositoryFactory } from '@core/documents/domain/ports';
 import { DOCUMENTS_BASE_URL } from '@core/documents/infrastructure/constants';
 import { DocumentResponse } from '@core/documents/infrastructure/models';
-import { isDocumentsResponse } from '@core/documents/infrastructure/type-guards/is-documents-response';
+import { isDocumentsResponse } from '@core/documents/infrastructure/type-guards';
 import {
   fetchDocumentsFromLocalStorage,
   saveDocument,

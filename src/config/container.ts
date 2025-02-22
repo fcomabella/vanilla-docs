@@ -2,13 +2,19 @@ import {
   GetDocumentsUseCase,
   SaveDocumentUseCase,
 } from '@core/documents/application/models';
-import { GetDocuments } from '@core/documents/application/use-cases';
+import {
+  GetDocuments,
+  NewDocumentSubject,
+} from '@core/documents/application/use-cases';
 import { SaveDocument } from '@core/documents/application/use-cases/save-document';
 import { DocumentsRepository } from '@core/documents/domain/ports';
 import { RestDocumentsRepository } from '@core/documents/infrastructure/ports';
+import { WebsocketSubject as WebsocketSubjectResult } from '@core/shared/infrastructure/models';
+import { WebsocketSubject } from '@core/shared/infrastructure/ports/web-socket-subject';
 import { fetchFromApi } from '@core/shared/infrastructure/utils';
 import {
   GetDocumentsController,
+  NewDocumentNotificationController,
   SaveDocumentController,
 } from '@ui/documents/controllers';
 import {
@@ -24,6 +30,11 @@ export const container = awilix.createContainer<{
   getDocumentsController: GetDocumentsControllerResult;
   saveDocumentUseCase: SaveDocumentUseCase;
   saveDocumentController: SaveDocumentControllerResult;
+  websocketSubject: WebsocketSubjectResult;
+  newDocumentSubject: ReturnType<typeof NewDocumentSubject>;
+  newDocumentNotificationController: ReturnType<
+    typeof NewDocumentNotificationController
+  >;
 }>({ strict: true });
 
 container.register({
@@ -33,4 +44,9 @@ container.register({
   getDocumentsController: awilix.asFunction(GetDocumentsController),
   saveDocumentUseCase: awilix.asFunction(SaveDocument),
   saveDocumentController: awilix.asFunction(SaveDocumentController),
+  websocketSubject: awilix.asFunction(WebsocketSubject).singleton(),
+  newDocumentSubject: awilix.asFunction(NewDocumentSubject),
+  newDocumentNotificationController: awilix.asFunction(
+    NewDocumentNotificationController
+  ),
 });

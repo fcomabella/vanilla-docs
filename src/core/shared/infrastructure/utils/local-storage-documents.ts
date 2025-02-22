@@ -1,6 +1,6 @@
 import { LOCAL_STORAGE_DOCUMENTS_KEY } from '@core/documents/infrastructure/constants/local-storage-documents-key';
 import { DocumentResponse } from '@core/documents/infrastructure/models';
-import { isDocumentsResponse } from '@core/documents/infrastructure/type-guards/is-documents-response';
+import { isDocumentsResponse } from '@core/documents/infrastructure/type-guards';
 
 export const fetchDocumentsFromLocalStorage = async (): Promise<
   Array<unknown>

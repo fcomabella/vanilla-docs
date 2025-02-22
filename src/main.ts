@@ -7,5 +7,4 @@ import { outlet, createRouter } from '@config/router/router';
 import { routes } from '@routes/routes';
 
 createRouter(routes);
-
 document.body.appendChild(outlet);
